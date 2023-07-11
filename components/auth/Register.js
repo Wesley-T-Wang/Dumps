@@ -17,6 +17,7 @@ export class Register extends Component {
 			email: "",
 			password: "",
 			username: "",
+			confirm: "",
 		};
 		this.onSignUp = this.onSignUp.bind(this);
 	}
@@ -36,8 +37,18 @@ export class Register extends Component {
 				console.log(error);
 			});
 	}
-
 	render() {
+		const styles = {
+			inputField: {
+				flexDirection: "row",
+				borderBottomColor: "#ccc",
+				borderBottomWidth: 1,
+				paddingBottom: 8,
+				marginBottom: 25,
+			},
+		};
+		const { confirm, password } = this.state;
+		const isMatching = confirm === password;
 		return (
 			<SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
 				<View style={{ paddingHorizontal: 25 }}>
@@ -54,15 +65,17 @@ export class Register extends Component {
 						<Text style={{ fontSize: 30, fontWeight: 500, marginBottom: 40 }}>Register</Text>
 					</View>
 
-					<View
-						style={{
-							flexDirection: "row",
-							borderBottomColor: "#ccc",
-							borderBottomWidth: 1,
-							paddingBottom: 8,
-							marginBottom: 25,
-						}}
-					>
+					<View style={styles.inputField}>
+						<Ionicons name="person-outline" size={20} color="#666" style={{ marginRight: 5 }} />
+						<TextInput
+							placeholder="Username"
+							style={{ flex: 1, paddingVertical: 0 }}
+							onChangeText={(username) => {
+								this.setState({ username });
+							}}
+						/>
+					</View>
+					<View style={styles.inputField}>
 						<MaterialIcons
 							name="alternate-email"
 							size={20}
@@ -70,45 +83,15 @@ export class Register extends Component {
 							style={{ marginRight: 5 }}
 						/>
 						<TextInput
-							placeholder="username"
+							placeholder="Email"
 							style={{ flex: 1, paddingVertical: 0 }}
+							onChangeText={(email) => {
+								this.setState({ email });
+							}}
 							keyboardType="email-address"
-							onChangeText={(username) => this.setState({ username })}
 						/>
 					</View>
-
-					<View
-						style={{
-							flexDirection: "row",
-							borderBottomColor: "#ccc",
-							borderBottomWidth: 1,
-							paddingBottom: 8,
-							marginBottom: 25,
-						}}
-					>
-						<MaterialIcons
-							name="alternate-email"
-							size={20}
-							color="#666"
-							style={{ marginRight: 5 }}
-						/>
-						<TextInput
-							placeholder="email"
-							style={{ flex: 1, paddingVertical: 0 }}
-							keyboardType="email-address"
-							onChangeText={(email) => this.setState({ email })}
-						/>
-					</View>
-
-					<View
-						style={{
-							flexDirection: "row",
-							borderBottomColor: "#ccc",
-							borderBottomWidth: 1,
-							paddingBottom: 8,
-							marginBottom: 25,
-						}}
-					>
+					<View style={styles.inputField}>
 						<Ionicons
 							name="ios-lock-closed-outline"
 							size={20}
@@ -116,15 +99,36 @@ export class Register extends Component {
 							style={{ marginRight: 5 }}
 						/>
 						<TextInput
-							placeholder="password"
+							placeholder="Password"
 							style={{ flex: 1, paddingVertical: 0 }}
+							onChangeText={(password) => {
+								this.setState({ password });
+							}}
+							keyboardType="password"
 							secureTextEntry={true}
-							onChangeText={(password) => this.setState({ password })}
 						/>
-						<TouchableOpacity onPress={() => {}}>
-							{/* can nav to some forgot screen */}
-							<Text style={{ color: "#AD40AF", fontWeight: "500" }}>Forgot password?</Text>
-						</TouchableOpacity>
+					</View>
+					<View style={styles.inputField}>
+						<Ionicons
+							name="ios-lock-closed-outline"
+							size={20}
+							color="#666"
+							style={{ marginRight: 5 }}
+						/>
+						<TextInput
+							placeholder="Confirm Password"
+							style={{ flex: 1, paddingVertical: 0, color: isMatching ? "black" : "#AD40AF" }}
+							onChangeText={(confirm) => {
+								this.setState({ confirm });
+							}}
+							keyboardType="password"
+							secureTextEntry={true}
+						/>
+						{isMatching ? (
+							<></>
+						) : (
+							<Text style={{ color: "#AD40AF", fontWeight: "500" }}>Passwords don't match!</Text>
+						)}
 					</View>
 
 					<TouchableOpacity
@@ -133,14 +137,14 @@ export class Register extends Component {
 						title="Sign Up"
 					>
 						<Text style={{ textAlign: "center", color: "#fff", fontWeight: 700, fontSize: 16 }}>
-							Login
+							Register
 						</Text>
 					</TouchableOpacity>
 
 					<View style={{ flexDirection: "row", justifyContent: "center", marginBottom: 200 }}>
-						<Text>New to Dumps?</Text>
+						<Text>Already registed?</Text>
 						<TouchableOpacity>
-							<Text style={{ color: "#AD40AF", fontWeight: 700 }}> Register!</Text>
+							<Text style={{ color: "#AD40AF", fontWeight: 700 }}> Login!</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
