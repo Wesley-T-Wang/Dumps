@@ -18,6 +18,7 @@ export class Register extends Component {
 			password: "",
 			username: "",
 			confirm: "",
+			typing: false,
 		};
 		this.onSignUp = this.onSignUp.bind(this);
 	}
@@ -47,8 +48,9 @@ export class Register extends Component {
 				marginBottom: 25,
 			},
 		};
-		const { confirm, password } = this.state;
+		const { confirm, password, email, typing } = this.state;
 		const isMatching = confirm === password;
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 		return (
 			<SafeAreaView style={{ flex: 1, justifyContent: "center" }}>
 				<View style={{ paddingHorizontal: 25 }}>
@@ -86,10 +88,13 @@ export class Register extends Component {
 							placeholder="Email"
 							style={{ flex: 1, paddingVertical: 0 }}
 							onChangeText={(email) => {
-								this.setState({ email });
+								this.setState({ email, typing: true });
 							}}
 							keyboardType="email-address"
 						/>
+						{typing && !emailRegex.test(email) && (
+							<Text style={{ color: "#AD40AF", fontWeight: "700" }}>Invalid email format</Text>
+						)}
 					</View>
 					<View style={styles.inputField}>
 						<Ionicons
@@ -124,10 +129,8 @@ export class Register extends Component {
 							keyboardType="password"
 							secureTextEntry={true}
 						/>
-						{isMatching ? (
-							<></>
-						) : (
-							<Text style={{ color: "#AD40AF", fontWeight: "500" }}>Passwords don't match!</Text>
+						{isMatching ? null : (
+							<Text style={{ color: "#AD40AF", fontWeight: 700 }}>Passwords don't match!</Text>
 						)}
 					</View>
 
