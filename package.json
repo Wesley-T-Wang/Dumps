@@ -33,8 +33,7 @@
     "redux-thunk": "^2.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "babel-plugin-inline-react-svg": "^2.0.2"
+    "@babel/core": "^7.20.0"
   },
   "private": true
 }
