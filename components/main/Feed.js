@@ -1,12 +1,10 @@
-import React from 'react'
-import {View, Text} from 'react-native'
+import React from "react";
+import { View, Text, SafeAreaView } from "react-native";
 
 export default function Feed() {
-  return (
-    <View>
-        <Text>
-            Feed
-        </Text>
-    </View>
-  )
+	return (
+		<SafeAreaView>
+			<Text>Feed</Text>
+		</SafeAreaView>
+	);
 }
